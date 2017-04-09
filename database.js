@@ -6,9 +6,10 @@ var randomstring = require("randomstring");
 var mysql  = require('mysql');
 var db = mysql.createPool({
     connectionLimit : 100,
-    host     : OPENSHIFT_MYSQL_DB_HOST,
-    user     : OPENSHIFT_MYSQL_DB_USERNAME,
-    password : OPENSHIFT_MYSQL_DB_PASSWORD,
+    host     : process.env.OPENSHIFT_MYSQL_DB_HOST,
+	port     : process.env.OPENSHIFT_MYSQL_DB_PORT,
+    user     : process.env.OPENSHIFT_MYSQL_DB_USERNAME,
+    password : process.env.OPENSHIFT_MYSQL_DB_PASSWORD,
 });
 
 db.getConnection(function(err, connection) {
