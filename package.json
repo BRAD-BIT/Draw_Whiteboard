@@ -1,5 +1,5 @@
 {
-  "name": "ejs",
+  "name": "Draw_Whiteboard",
   "version": "0.0.0",
   "private": true,
   "scripts": {
@@ -12,6 +12,10 @@
     "ejs": "~2.5.5",
     "express": "~4.14.1",
     "morgan": "~1.7.0",
-    "serve-favicon": "~2.3.2"
+    "serve-favicon": "~2.3.2",
+    "bcrypt":"1.0.2",
+    "randomstring":"1.1.5",
+    "mysql":"2.13.0",
+    "socket.io":"1.7.3"
   }
 }
