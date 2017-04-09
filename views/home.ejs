@@ -1,0 +1,102 @@
+<head>
+    <title>Draw Whiteboard | <%=user%></title>
+    <style>
+        body {
+            height:100%;
+            background: url("http://hdwallpaperbackgrounds.net/wp-content/uploads/2016/07/white-background.jpg") no-repeat center fixed;
+            -webkit-background-size: contain;
+            -moz-background-size: contain;
+            background-size: cover;
+        }
+    </style>
+    <link rel="stylesheet" href="/stylesheets/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <link href="/stylesheets/tools2.css" rel="stylesheet" media="screen"/>
+
+</head>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+<div  align="center" >
+    <div class="toolbar">
+        <div class="btn new-button green" title="Create Room" name="new-button" >Create Room</div>
+        <div class="btn save-button green" title="Load Saved Draws" name="save-button">Load Saved Draws</div>
+
+
+        <div class="divider"></div>
+
+        <div class="btn undo-button" title="Log Out" name="undo-button">Log Out</div>
+
+    </div>
+
+    <br>
+
+
+    <div class="sketch-canvas-wrapper">
+        <div class="sketch-canvas-container">
+            <canvas id="myCanvas" class="sketch-canvas" style="width: 0px;height:0px;">
+            </canvas>
+        </div>
+
+    </div>
+</div>
+
+<div id="myModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Saved Draws</h4>
+            </div>
+            <div class="modal-body">
+
+                <%
+                    if(saved.length==0)
+                    {
+                %>
+                         <h6 style="color:RED;"id="v_password">There Is no Saved Draws!</h6>
+                <%
+                    }
+                %>
+                <%
+                    for(var i=saved.length-1;i>=0;i--)
+                    {
+                        id=saved[i].substr(0,saved[i].length-4);
+                        m=new Date(parseInt(id));
+                        dateString =
+                        m.getFullYear() + "/" +
+                        ("0" + (m.getMonth()+1)).slice(-2) + "/" +
+                        ("0" + m.getDate()).slice(-2) + " " +
+                        ("0" + m.getHours()).slice(-2) + ":" +
+                        ("0" + m.getMinutes()).slice(-2) + ":" +
+                        ("0" + m.getSeconds()).slice(-2);
+                %>
+                <script>
+
+
+
+
+                </script>
+                <div class="col-lg-3 col-md-4 col-xs-6 thumb">
+                    <a class="thumbnail" href="/room/<%=saved[i]%>">
+                        <img class="img-responsive" src="/images/users/<%=user%>/<%=saved[i]%>" alt="<%=dateString%>">
+                    </a>
+                </div>
+                <%
+                    }
+                %>
+                <%
+                    for(var i=0;i<saved.length;i+=4)
+                {%>
+                     <br><br><br><br><br>
+                <%
+                }
+                %>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<script src="/javascripts/tools2.js"></script>

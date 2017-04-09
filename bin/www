@@ -1,0 +1,167 @@
+#!/usr/bin/env node
+
+/**
+ * Module dependencies.
+ */
+
+var app = require('../app');
+var database=require('../database');
+var debug = require('debug')('mvc-chat:server');
+var http = require('http');
+
+
+
+
+/**
+ * DataBase
+*/
+
+
+/**
+ * Get port from environment and store in Express.
+ */
+
+var port = normalizePort(process.env.PORT || '3000');
+app.set('port', port);
+
+/**
+ * Create HTTP server.
+ */
+
+var server = http.createServer(app);
+
+/**
+ * Listen on provided port, on all network interfaces.
+ */
+
+server.listen(port);
+server.on('error', onError);
+server.on('listening', onListening);
+
+var io = require('socket.io')(server);
+io.on('connection', function(socket){
+
+    socket.on('disconnect', function(){
+        console.log(socket.nickname);
+        //console.log(Object.keys(socket.adapter.rooms[9889].sockets));
+    });
+
+
+    socket.on('room', function(room,user) {
+        console.log("User '"+user+"' joined to room #"+room);
+        socket.nickname = "User '"+user+"' leave room #"+room;
+
+        socket.join(room);
+
+        var FirstClient = Object.keys(socket.adapter.rooms[room].sockets)[0];
+        var clinetlens = Object.keys(socket.adapter.rooms[room].sockets).length;
+        var LastClient = Object.keys(socket.adapter.rooms[room].sockets)[clinetlens-1];
+
+        if(clinetlens>1)
+        {
+            //console.log("Get Update");
+            setTimeout(function() {
+                socket.to(FirstClient).emit('UpdateMe',LastClient);
+            }, 2000 );
+        }
+    });
+
+    socket.on('UpdateLastClient', function(room,LastClient,paths,msgs,from_user){
+        socket.to(LastClient).emit('YourUpdate', paths,msgs,from_user);
+    });
+
+    socket.on('save', function(room,User,image,users,paths){
+        console.log("User '"+User +"' Want Save room #"+room);
+        var base64Data = image.replace(/^data:image\/png;base64,/, "");
+        var date = new Date();
+        var name=date.getTime();
+        require("fs").writeFile('./public/images/users/'+User+'/'+name+".png", base64Data, 'base64', function(err) {
+            if(err)throw err;
+        });
+        database.insert_draw(name,users,paths);
+    });
+
+    socket.on('chat message', function(msg,room,user){
+        socket.in(room).broadcast.emit('chat message', msg,user);
+    });
+
+    socket.on( 'drawCircle', function( data ,room) {
+        socket.in(room).broadcast.emit( 'drawCircle', data );
+    });
+
+    socket.on( 'drawLine1', function( data ,room) {
+        socket.in(room).broadcast.emit( 'drawLine1', data );
+    });
+
+    socket.on( 'drawLine2', function( data ,room) {
+        socket.in(room).broadcast.emit( 'drawLine2', data );
+    });
+    socket.on( 'drawLine3', function(room,user) {
+        socket.in(room).broadcast.emit( 'drawLine3', user );
+    });
+    socket.on('undo', function(room,user) {
+        //console.log("undo")
+        socket.in(room).broadcast.emit( 'undo', user );
+    });
+});
+/**
+ * Normalize a port into a number, string, or false.
+ */
+
+function normalizePort(val) {
+    var port = parseInt(val, 10);
+
+    if (isNaN(port)) {
+        // named pipe
+        return val;
+    }
+
+    if (port >= 0) {
+        // port number
+        return port;
+    }
+
+    return false;
+}
+
+/**
+ * Event listener for HTTP server "error" event.
+ */
+
+function onError(error) {
+    if (error.syscall !== 'listen') {
+        throw error;
+    }
+
+    var bind = typeof port === 'string'
+        ? 'Pipe ' + port
+        : 'Port ' + port;
+
+    // handle specific listen errors with friendly messages
+    switch (error.code) {
+        case 'EACCES':
+            console.error(bind + ' requires elevated privileges');
+            process.exit(1);
+            break;
+        case 'EADDRINUSE':
+            console.error(bind + ' is already in use');
+            process.exit(1);
+            break;
+        default:
+            throw error;
+    }
+}
+
+/**
+ * Event listener for HTTP server "listening" event.
+ */
+
+function onListening() {
+    var addr = server.address();
+    var bind = typeof addr === 'string'
+        ? 'pipe ' + addr
+        : 'port ' + addr.port;
+    debug('Listening on ' + bind);
+}
+
+

@@ -1,0 +1,227 @@
+<head>
+    <title>Draw Whiteboard | <%=userName%></title>
+    <style>
+
+        body {
+            height:100%;
+            background: url("http://hdwallpaperbackgrounds.net/wp-content/uploads/2016/07/white-background.jpg") no-repeat center fixed;
+            -webkit-background-size: contain;
+            -moz-background-size: contain;
+            background-size: cover;
+        }
+
+
+    </style>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        var decodeHtmlEntity = function(x) {
+            return x.replace(/&#(\d+);/g, function(match, dec) {
+                return String.fromCharCode(dec);
+            });
+        };
+        var users_load="<%=users%>";
+        var points_load="<%=points%>";
+        users_load=decodeHtmlEntity(users_load);
+        points_load=decodeHtmlEntity(points_load);
+        var room = '<%=room%>';
+        var userName = '<%=userName%>';
+        var socket = io();
+        socket.on('connect', function () {
+            socket.emit('room', room, userName);
+        });
+    </script>
+
+
+    <link rel="stylesheet" href="/stylesheets/bootstrap.min.css">
+
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/javascripts/paperjs/dist/paper-full.js"></script>
+
+    <script type="text/javascript" src="/javascripts/chat_java.js"></script>
+    <script type="text/javascript" src="/javascripts/chat_socket.js"></script>
+    <script type="text/javascript" src="/javascripts/draw_socket.js"></script>
+
+
+    <link rel="stylesheet" type="text/css" href="/stylesheets/wow-alert.css">
+    <link href="/stylesheets/tools.css" rel="stylesheet" media="screen"/>
+    <link href="/stylesheets/chat_style.css" rel="stylesheet" type="text/css">
+
+</head>
+<br><br>
+<div  align="center">
+    <div class="toolbar">
+        <div class="btn new-button green" title="Go To Home Page" name="new-button" >Home</div>
+        <div class="btn save-button green" title="Save the sketch" name="save-button">Save</div>
+
+        <div class="divider"></div>
+
+        <div class="btn undo-button" title="Undo last action" name="undo-button">Undo</div>
+        <div class="btn eraser-toggle" title="Clear All Draws" name="eraser-toggle">Clear</div>
+
+        <div class="dropdown size-dropdown">
+            <div class="btn dropdown-title"><span class="label" >SIZE:</span> <span class="value"></span></div>
+            <div class="dropdown-list">
+                <ul class="dropdown-list-inner">
+                    <li>
+                        <div class="dropdown-item" data-value="0.5" class="small"><span
+                                style="width: 1px; height: 1px;"></span></div>
+                    </li>
+                    <li>
+                        <div class="dropdown-item" data-value="1" class="small"><span
+                                style="width: 2px; height: 2px;"></span></div>
+                    </li>
+                    <li>
+                        <div class="dropdown-item" data-value="2" class="small"><span
+                                style="width: 3px; height: 3px;"></span></div>
+                    </li>
+                    <li>
+                        <div class="dropdown-item" data-value="3" class="small"><span
+                                style="width: 4px; height: 4px;"></span></div>
+                    </li>
+                    <li>
+                        <div class="dropdown-item" data-value="4"><span style="width: 6px; height: 6px;"></span></div>
+                    </li>
+                    <li>
+                        <div class="dropdown-item" data-value="5"><span style="width: 8px; height: 8px;"></span></div>
+                    </li>
+                    <li>
+                        <div class="dropdown-item" data-value="7"><span style="width: 10px; height: 10px;"></span></div>
+                    </li>
+                    <li>
+                        <div class="dropdown-item" data-value="9"><span style="width: 12px; height: 12px;"></span></div>
+                    </li>
+                    <li>
+                        <div class="dropdown-item" data-value="16"><span style="width: 16px; height: 16px;"></span>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="dropdown-item" data-value="20" class="large"><span
+                                style="width: 28px; height: 28px;"></span></div>
+                    </li>
+                    <li>
+                        <div class="dropdown-item" data-value="24" class="xlarge"><span
+                                style="width: 50px; height: 50px;"></span></div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="dropdown color-dropdown">
+            <div class="btn dropdown-title"><span class="label">COLOR</span></div>
+
+            <div class="dropdown-list">
+                <ul class="dropdown-list-inner">
+                    <li>
+                        <div class="dropdown-item" data-value="#000000" style="background: #000000;">&nbsp;</div>
+                    </li>
+                    <li>
+                        <div class="dropdown-item" data-value="#555555" style="background: #555555;">&nbsp;</div>
+                    </li>
+                    <li>
+                        <div class="dropdown-item" data-value="#999999" style="background: #999999;">&nbsp;</div>
+                    </li>
+                    <li>
+                        <div class="dropdown-item" data-value="#0a67a3" style="background: #0a67a3;">&nbsp;</div>
+                    </li>
+                    <li>
+                        <div class="dropdown-item" data-value="#3e97d1" style="background: #3e97d1;">&nbsp;</div>
+                    </li>
+                    <li>
+                        <div class="dropdown-item" data-value="#8ec9ef" style="background: #8ec9ef;">&nbsp;</div>
+                    </li>
+                    <li>
+                        <div class="dropdown-item" data-value="#ff0000" style="background: #ff0000;">&nbsp;</div>
+                    </li>
+                    <li>
+                        <div class="dropdown-item" data-value="#f56c36" style="background: #f56c36;">&nbsp;</div>
+                    </li>
+                    <li>
+                        <div class="dropdown-item" data-value="#f8a881" style="background: #f8a881;">&nbsp;</div>
+                    </li>
+                    <li>
+                        <div class="dropdown-item" data-value="#407f1a" style="background: #407f1a;">&nbsp;</div>
+                    </li>
+                    <li>
+                        <div class="dropdown-item" data-value="#7ed616" style="background: #7ed616;">&nbsp;</div>
+                    </li>
+                    <li>
+                        <div class="dropdown-item" data-value="#ddec38" style="background: #ddec38;">&nbsp;</div>
+                    </li>
+                    <li>
+                        <div class="dropdown-item" data-value="#a15f9d" style="background: #a15f9d;">&nbsp;</div>
+                    </li>
+                    <li>
+                        <div class="dropdown-item" data-value="#f580e3" style="background: #f580e3;">&nbsp;</div>
+                    </li>
+                    <li>
+                        <div class="dropdown-item" data-value="#ffff00" style="background: #ffff00;">&nbsp;</div>
+                    </li>
+                    <li>
+                        <div class="dropdown-item" data-value="#8a5025" style="background: #8a5025;">&nbsp;</div>
+                    </li>
+                    <li>
+                        <div class="dropdown-item" data-value="#ef934d" style="background: #ef934d;">&nbsp;</div>
+                    </li>
+                    <li>
+                        <div class="dropdown-item" data-value="#ffffff" style="background: #ffffff;">&nbsp;</div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+
+
+    </div>
+
+    <br>
+
+
+    <div class="sketch-canvas-wrapper">
+        <div class="sketch-canvas-container">
+                <canvas id="myCanvas" class="sketch-canvas" style="width: 960px;height:500px;">
+                </canvas>
+
+            <div class="replay-controls">
+                <div class="progress"></div>
+            </div>
+        </div>
+
+    </div>
+
+
+</div>
+<script src="/javascripts/tools.js"></script>
+<script type="text/javascript" src="/javascripts/wow-alert.js"></script>
+
+<div class="container" style="z-index: 10000;position:relative;">
+    <div class="row chat-window col-xs-5 col-md-3" id="chat_window_1" style="margin-left:900px;">
+        <div class="col-xs-12 col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading top-bar">
+                    <div class="col-md-8 col-xs-8">
+                        <h3 class="panel-title"><span class="glyphicon glyphicon-comment"></span> Room - Chat</h3>
+                    </div>
+                    <div class="col-md-4 col-xs-4" style="text-align: right;">
+                        <a href="#"><span id="minim_chat_window" class="glyphicon glyphicon-minus icon_minim"></span></a>
+                    </div>
+                </div>
+                <div class="panel-body msg_container_base" id="messages">
+
+                </div>
+                <div class="panel-footer">
+                    <div class="input-group">
+                        <input id="msg" onKeyDown="if(event.keyCode==13) x();" type="text" value="" class="form-control input-sm chat_input" placeholder="Write your message here..." />
+                        <span class="input-group-btn">
+                        <button class="btn btn-primary btn-sm" id="btn-chat" >Send</button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+

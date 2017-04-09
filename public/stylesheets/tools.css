@@ -1,0 +1,1253 @@
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline
+}
+
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+    display: block
+}
+
+body {
+    line-height: 1
+}
+
+ol, ul {
+    list-style: none
+}
+
+blockquote, q {
+    quotes: none
+}
+
+blockquote:before, blockquote:after, q:before, q:after {
+    content: '';
+    content: none
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0
+}
+
+::-moz-selection {
+    background: #47BFA2;
+    color: #fff;
+    text-shadow: none
+}
+
+::selection {
+    background: #47BFA2;
+    color: #fff;
+    text-shadow: none
+}
+
+html, body {
+    height: 100%;
+    min-width: 960px;
+    overflow: visible;
+    background-color: #fff;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    -webkit-text-size-adjust: 100%
+}
+
+html {
+    overflow: auto
+}
+
+button {
+    background: transparent;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    cursor: pointer;
+    -webkit-appearance: none
+}
+
+.share-overlay .close, .share-overlay .share a span.icon, .toolbar .btn .icon, header .connect-button, header .facebook-invite {
+    background-image: url(http://d1835mevib0k1p.cloudfront.net/sketch/r/49/sketch-sprites.png);
+    background-repeat: no-repeat
+}
+
+.main-container {
+    background: #fff;
+    text-align: center
+}
+
+.sketch-canvas-wrapper {
+    position: relative;
+    display: inline-block;
+    white-space: nowrap
+}
+
+.sketch-canvas-container {
+    display: inline-block;
+    position: relative;
+    width: 960px;
+    min-height: 500px;
+    margin: 0 auto;
+    background: url(http://d1835mevib0k1p.cloudfront.net/sketch/r/49/background.png);
+    background-size: cover
+}
+
+.sketch-canvas-container .stencil {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    opacity: 0;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: 50%;
+    -webkit-transition: opacity .3s ease;
+    -moz-transition: opacity .3s ease;
+    transition: opacity .3s ease
+}
+
+.sketch-canvas-container .stencil.visible {
+    opacity: .5
+}
+
+.sketch-canvas-container .stencil-controls {
+    position: absolute;
+    right: 10px;
+    bottom: -30px;
+    z-index: 4;
+    font-size: 12px;
+    color: #666
+}
+
+.sketch-canvas-container .stencil-button {
+    padding: 4px 6px;
+    margin-left: 4px;
+    color: #fff;
+    background: rgba(0, 0, 0, .3);
+    border-radius: 2px;
+    text-decoration: none
+}
+
+.sketch-canvas-container .stencil-button:hover {
+    background: rgba(0, 0, 0, .8)
+}
+
+.sketch-canvas-container .sketch-canvas {
+    position: absolute;
+    display: block;
+    top: 0;
+    left: 0;
+    visibility: hidden;
+    z-index: 3;
+    cursor: crosshair;
+    border-radius: 2px
+}
+
+.has-stencil .sketch-canvas-container {
+    margin-bottom: 20px
+}
+
+.sketch-footer {
+    position: absolute;
+    margin: 10px auto 0;
+    text-align: right;
+    visibility: hidden;
+    font-size: 12px;
+    color: #999
+}
+
+.sketch-footer a {
+    padding: 6px;
+    color: #999
+}
+
+.sketch-footer a:hover {
+    border-radius: 2px;
+    background: #667380;
+    color: #fff
+}
+
+#spinner {
+    display: none;
+    position: absolute;
+    width: 32px;
+    height: 32px;
+    left: 50%;
+    margin-left: -16px;
+    z-index: 10;
+    background-image: url(http://d1835mevib0k1p.cloudfront.net/sketch/ajax-loader.gif);
+    background-repeat: no-repeat;
+    background-position: 50% 50%
+}
+
+.loading #spinner {
+    display: block
+}
+
+.toolbar {
+    position: relative;
+    visibility: hidden;
+    display: inline-block;
+    height: 40px;
+    color: #fff;
+    text-align: center;
+    margin-bottom: 15px;
+    white-space: nowrap
+}
+
+.toolbar .divider {
+    display: inline-block;
+    width: 1px;
+    height: 25px;
+    border-right: 1px solid #eee;
+    margin: 4px 5px 0 0;
+    vertical-align: top
+}
+
+.toolbar .btn {
+    display: inline-block;
+    position: relative;
+    height: 29px;
+    margin: 2px 8px 10px 2px;
+    padding: 10px 7px 7px;
+    cursor: pointer;
+    color: #fff;
+    background: #fb956c;
+    white-space: nowrap;
+    border-radius: 2px;
+    font-size: 12px;
+    font-weight: 700;
+    text-decoration: none;
+    text-transform: uppercase;
+    outline: 0;
+    border: 0;
+    box-shadow: 1px 1px 0 #e14506, 2px 2px 0 #e14506, 3px 3px 0 #e14506;
+    vertical-align: top;
+    box-sizing: border-box;
+    -webkit-user-select: none;
+    user-select: none;
+    -webkit-text-size-adjust: none;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none
+}
+
+.toolbar .btn.on {
+    background: #fa7c49;
+    color: rgba(255, 255, 255, .6)
+}
+
+.toolbar .btn.on:hover {
+    background: #fa7c49;
+    color: rgba(255, 255, 255, .6)
+}
+
+.toolbar .btn:hover {
+    background: #fa7c49
+}
+
+.toolbar .btn.on, .toolbar .btn:active {
+    left: 2px;
+    top: 2px;
+    box-shadow: 1px 1px 0 #e14506
+}
+
+.toolbar .btn span {
+    padding: 3px 0;
+    text-align: center;
+    font-weight: 700;
+}
+
+.toolbar .btn.blue {
+    background: #70a7f5;
+    box-shadow: 1px 1px 0 #116cee, 2px 2px 0 #116cee, 3px 3px 0 #116cee
+}
+
+.toolbar .btn.blue:hover {
+    background: #4f92f3
+}
+
+.toolbar .btn.blue:active {
+    box-shadow: 1px 1px 0 #116cee
+}
+
+.toolbar .btn.green {
+    background: #77D88E;
+    box-shadow: 1px 1px 0 #2ea14a, 2px 2px 0 #2ea14a, 3px 3px 0 #2ea14a
+}
+
+.toolbar .btn.green:hover {
+    background: #5bd077
+}
+
+.toolbar .btn.green:active {
+    box-shadow: 1px 1px 0 #2ea14a
+}
+
+.toolbar .btn .icon {
+    display: inline-block;
+    vertical-align: top
+}
+
+.toolbar .btn.share-button .icon {
+    height: 20px;
+    width: 35px;
+    margin-top: -8px;
+    margin-left: 2px;
+    background-position: -560px 0
+}
+
+.toolbar .btn.facebook-share .icon {
+    height: 20px;
+    width: 12px;
+    margin-top: -8px;
+    margin-right: 2px;
+    background-position: -560px 0
+}
+
+.toolbar .btn.facebook-send .icon {
+    height: 20px;
+    width: 28px;
+    margin-top: -8px;
+    margin-right: 2px;
+    background-position: -596px 0
+}
+
+.toolbar .btn.tweet-button .icon {
+    height: 20px;
+    width: 20px;
+    margin-top: -8px;
+    margin-right: 2px;
+    background-position: -573px 0
+}
+
+.toolbar .dropdown {
+    display: inline-block;
+    margin: 0 10px 2px 2px;
+    white-space: normal
+}
+
+.toolbar .dropdown .dropdown-title {
+    display: block;
+    width: 100%;
+    margin: 2px 0 0
+}
+
+.toolbar .dropdown .dropdown-title span {
+    pointer-events: none
+}
+
+.toolbar .dropdown .dropdown-title:hover {
+    background: #fa6d35
+}
+
+.toolbar .dropdown .dropdown-title.open {
+    background: #fa6d35;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0
+}
+
+.toolbar .dropdown .dropdown-list {
+    position: absolute;
+    display: none;
+    z-index: 111111;
+    font-size: 14px
+}
+
+.toolbar .dropdown .dropdown-list .dropdown-list-inner {
+    position: relative;
+    margin-top: 12px;
+    background: #fff;
+    border-radius: 3px;
+    border: 1px #bbb solid;
+    box-shadow: 0 0 5px rgba(0, 0, 0, .15)
+}
+
+.toolbar .dropdown .dropdown-list .dropdown-list-inner:before {
+    content: '';
+    position: absolute;
+    height: 0;
+    width: 0;
+    left: 50%;
+    right: auto;
+    top: -9px;
+    bottom: auto;
+    border-style: solid;
+    border-width: 8px;
+    border-color: transparent;
+    -webkit-transform: rotate(360deg);
+    margin-left: -8px;
+    border-top-width: 0;
+    border-bottom-color: #bbb
+}
+
+.toolbar .dropdown .dropdown-list .dropdown-list-inner:after {
+    content: '';
+    position: absolute;
+    height: 0;
+    width: 0;
+    left: 50%;
+    right: auto;
+    top: -8px;
+    bottom: auto;
+    border-style: solid;
+    border-width: 8px;
+    border-color: transparent;
+    -webkit-transform: rotate(360deg);
+    margin-left: -8px;
+    border-top-width: 0;
+    border-bottom-color: #fff
+}
+
+.toolbar .dropdown .dropdown-list.open {
+    display: block
+}
+
+.toolbar .dropdown .dropdown-list .dropdown-item {
+    display: block;
+    width: 100%;
+    padding: 9px 0;
+    font-size: 12px;
+    cursor: pointer;
+    text-decoration: none;
+    color: #333
+}
+
+.toolbar .dropdown .dropdown-list .dropdown-item:hover {
+    background: #fdcdb5
+}
+
+.toolbar .dropdown .dropdown-list .dropdown-item:focus {
+    outline: 0
+}
+
+.toolbar .dropdown .dropdown-list .dropdown-item.selected {
+    background: #fdcdb5
+}
+
+.color-dropdown {
+    position: relative;
+    z-index: 100;
+}
+
+.color-dropdown .dropdown-title {
+    text-align: center
+}
+
+.color-dropdown .dropdown-title.light {
+    color: #777;
+    box-shadow: 2px 2px 1px rgba(0, 0, 0, .4) !important
+}
+
+.color-dropdown .dropdown-title .value {
+    display: none
+}
+
+.color-dropdown .dropdown-list {
+    width: 150px
+}
+
+.color-dropdown .dropdown-list ul {
+    padding: 6px
+}
+
+.color-dropdown .dropdown-list li {
+    display: inline-block;
+    height: 34px;
+    width: 34px;
+    margin: 6px 4px;
+    cursor: pointer
+}
+
+.color-dropdown .dropdown-list li .dropdown-item {
+    display: inline-block !important;
+    width: 100%;
+    height: 100%;
+    padding: 0 !important;
+    border-radius: 100%;
+    box-shadow: 0 0 4px #bbb;
+    border: 2px solid #fff;
+    -webkit-transition: all .15s ease !important;
+    -moz-transition: all .15s ease !important;
+    transition: all .15s ease !important
+}
+
+.color-dropdown .dropdown-list li .dropdown-item:hover, .color-dropdown .dropdown-list li .dropdown-item.selected {
+    box-shadow: 0 0 6px #555
+}
+
+.size-dropdown .dropdown-list {
+    width: 100px
+}
+
+.size-dropdown .dropdown-list li a {
+    height: 32px;
+    line-height: 32px;
+    padding: 0 !important
+}
+
+.size-dropdown .dropdown-list li a.small {
+    height: 26px;
+    line-height: 26px
+}
+
+.size-dropdown .dropdown-list li a.large {
+    height: 36px;
+    line-height: 36px
+}
+
+.size-dropdown .dropdown-list li span {
+    display: inline-block;
+    background: #000;
+    border-radius: 100%;
+    vertical-align: middle
+}
+
+.vibration-dropdown .dropdown-list {
+    width: 100px
+}
+
+@media all and (max-width: 940px) {
+    .toolbar .share-button .icon {
+        display: none !important
+    }
+}
+
+header {
+    position: relative;
+    width: 100%;
+    height: 48px;
+    min-width: 960px;
+    z-index: 5;
+    margin: 0 0 18px;
+    color: #eee;
+    text-align: left;
+    background: #222;
+    background: -moz-linear-gradient(top, #333 0, #111 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #333), color-stop(100%, #111));
+    background: -webkit-linear-gradient(top, #333 0, #111 100%);
+    background: -o-linear-gradient(top, #333 0, #111 100%);
+    background: -ms-linear-gradient(top, #333 0, #111 100%);
+    background: linear-gradient(to bottom, #333 0, #111 100%)
+}
+
+header h1 {
+    margin: 2px 17px 0 8px;
+    float: left;
+    font-family: Helvetica, sans-serif;
+    font-size: 20px;
+    letter-spacing: -.03em
+}
+
+header h1 a {
+    color: #eee;
+    text-decoration: none
+}
+
+header .share {
+    display: inline-block;
+    position: relative;
+    top: 13px;
+    white-space: nowrap
+}
+
+header .share > iframe, header .share > div {
+    margin: 0 6px;
+    display: inline-block
+}
+
+header .share .facebook-like-wrapper {
+    display: inline-block;
+    vertical-align: top;
+    margin-right: 6px
+}
+
+header .share .facebook-like-wrapper .fb-like {
+    overflow: hidden;
+    vertical-align: top
+}
+
+header .right {
+    float: right
+}
+
+header .facebook-invite {
+    display: inline-block;
+    width: 118px;
+    height: 26px;
+    margin: 12px 15px 0 0;
+    background-position: -642px -31px;
+    vertical-align: top
+}
+
+header .facebook-invite:hover {
+    background-position: -814px -31px
+}
+
+header .facebook-connect {
+    display: inline-block;
+    position: relative;
+    width: 166px;
+    margin: 12px 15px 0 0;
+    text-align: right;
+    vertical-align: top
+}
+
+header .facebook-connect.loading {
+    opacity: .5
+}
+
+header .facebook-connect.connected {
+    width: auto
+}
+
+header .facebook-connect.connected .connect-button {
+    display: none
+}
+
+header .facebook-connect.connected .contents {
+    display: block
+}
+
+header .facebook-connect .connect-button {
+    display: block;
+    width: 100%;
+    height: 26px;
+    background-position: -642px -2px
+}
+
+header .facebook-connect .connect-button:hover {
+    background-position: -814px -2px
+}
+
+header .facebook-connect .contents {
+    display: none;
+    padding-bottom: 20px
+}
+
+header .facebook-connect .contents .title {
+    width: 100%;
+    cursor: default;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    color: #eee;
+    font-size: 14px;
+    vertical-align: middle;
+    margin-top: -2px
+}
+
+header .facebook-connect .contents .title .avatar {
+    position: relative;
+    display: inline-block;
+    margin-right: 8px;
+    border: 1px solid #bbb;
+    vertical-align: middle
+}
+
+header .facebook-connect .contents .dropdown {
+    display: none;
+    position: absolute;
+    width: 200px;
+    right: -5px;
+    top: 36px;
+    padding: 15px;
+    color: #252525;
+    font-size: 14px;
+    text-align: left;
+    background: #fff;
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
+    border: 1px #bbb solid;
+    border-top: 0;
+    line-height: 1.2em;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box
+}
+
+header .facebook-connect .contents .dropdown p {
+    margin-bottom: 10px
+}
+
+header .facebook-connect .contents:hover .dropdown {
+    display: block
+}
+
+header .select-language {
+    position: relative;
+    display: inline-block;
+    margin: 0 16px;
+    font-size: 12px;
+    border-right: 1px solid #444
+}
+
+header .select-language.loading {
+    visibility: hidden
+}
+
+header .select-language .button {
+    color: #ddd;
+    padding: 18px 16px;
+    cursor: default
+}
+
+header .select-language .button .value {
+    color: #fff;
+    font-weight: 700
+}
+
+header .select-language .list {
+    display: none;
+    position: absolute;
+    width: 120px;
+    top: 48px;
+    left: 50%;
+    margin-left: -60px;
+    background: #fff;
+    color: #333;
+    border: 1px #bbb solid;
+    border-top: 0;
+    border-bottom-right-radius: 3px;
+    border-bottom-left-radius: 3px;
+    text-align: center
+}
+
+header .select-language .list li {
+    padding: 10px 8px;
+    cursor: pointer
+}
+
+header .select-language .list li:hover {
+    background: #fdcdb5
+}
+
+header .select-language .list:after {
+    content: '';
+    position: absolute;
+    top: -6px;
+    left: 50%;
+    margin-left: -6px;
+    width: 0;
+    height: 0;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-bottom: 6px solid #fff
+}
+
+.related {
+    margin-top: 40px;
+    text-align: center
+}
+
+.related > div {
+    display: inline-block;
+    vertical-align: top
+}
+
+.related > div.visible {
+    display: inline-block
+}
+
+.related > div h3 {
+    font-size: 14px;
+    text-align: center
+}
+
+.related .related-gallery img {
+    width: 136px;
+    height: 82px
+}
+
+.related .related-comments {
+    display: inline-block;
+    width: 500px;
+    margin-right: 30px;
+    margin-left: 30px
+}
+
+.related .related-comments h3 {
+    color: #999;
+    margin-bottom: 10px
+}
+
+.related-gallery {
+    text-align: center;
+    width: 300px;
+    text-align: left
+}
+
+.related-gallery h3 {
+    font-size: 12px;
+    color: #999;
+    margin-bottom: 10px
+}
+
+.related-gallery a {
+    display: inline-block;
+    margin-right: 6px;
+    margin-bottom: 6px
+}
+
+.related-gallery a img {
+    width: 110px;
+    height: 66px;
+    border: 2px solid #ddd;
+    -webkit-transition: border .15s ease;
+    -moz-transition: border .15s ease;
+    transition: border .15s ease
+}
+
+.related-gallery a:hover img {
+    border-color: #777
+}
+
+.related-gallery.horizontal {
+    width: auto
+}
+
+.related-gallery.horizontal a {
+    display: inline-block;
+    margin: 4px
+}
+
+footer {
+    min-width: 960px;
+    padding: 80px 0 60px;
+    margin-top: 170px;
+    color: #fff;
+    line-height: 1.5em;
+    border-top: 1px solid #000;
+    opacity: 0;
+    text-align: center;
+    background: #444;
+    -webkit-transition: all .2s ease .4s;
+    -moz-transition: all .2s ease .4s;
+    transition: all .2s ease .4s
+}
+
+footer .left, footer .right {
+    display: inline-block;
+    width: 340px;
+    margin: 0 40px;
+    vertical-align: top;
+    text-align: left
+}
+
+footer .left a {
+    margin-bottom: 10px
+}
+
+footer h3 {
+    margin-bottom: 6px;
+    font-weight: 700;
+    font-size: 18px
+}
+
+footer a {
+    color: #fb956c;
+    text-decoration: none
+}
+
+footer a:hover {
+    color: #fbc09e
+}
+
+footer p {
+    margin-bottom: 10px
+}
+
+footer .links {
+    margin-top: 80px;
+    font-size: 14px
+}
+
+footer .links a {
+    margin: 0 4px
+}
+
+#top-ad {
+    position: absolute;
+    top: 12px;
+    right: 10px;
+    z-index: 10
+}
+
+#bottom-ad {
+    position: relative;
+    text-align: center;
+    width: 100%;
+    color: #aaa;
+    margin: 30px 0 0
+}
+
+#bottom-ad a {
+    color: #706695
+}
+
+#left-pillar, #right-pillar {
+    display: inline-block;
+    width: 120px;
+    height: 600px;
+    margin: -10px 0 20px 0;
+    vertical-align: top
+}
+
+#left-pillar {
+    margin-right: 15px
+}
+
+#right-pillar {
+    margin-left: 15px
+}
+
+.wide-scyscraper #left-pillar, .wide-scyscraper #right-pillar {
+    width: 160px
+}
+
+.share-overlay {
+    background: rgba(0, 0, 0, .5);
+    position: fixed;
+    display: none;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 10
+}
+
+.share-overlay .inner {
+    position: absolute;
+    width: 820px;
+    left: 50%;
+    top: 10%;
+    margin-left: -410px;
+    background: #fff;
+    padding: 40px;
+    border-radius: 2px;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box
+}
+
+.share-overlay .close {
+    position: absolute;
+    display: block;
+    width: 40px;
+    height: 40px;
+    right: 10px;
+    top: 10px;
+    background-position: -120px 0;
+    background-size: cover
+}
+
+.share-overlay .url {
+    text-align: center
+}
+
+.share-overlay .url .label {
+    display: inline-block;
+    margin-right: 7px;
+    font-size: 24px;
+    color: #777
+}
+
+.share-overlay .url input {
+    width: 400px;
+    padding: 6px 10px;
+    border: 1px solid #CCC;
+    font-size: 24px
+}
+
+.share-overlay .share {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid #ddd;
+    text-align: center
+}
+
+.share-overlay .share a {
+    display: inline-block;
+    width: 29%;
+    padding: 24px 14px;
+    margin: 10px;
+    background: #eee;
+    color: #fff;
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 700;
+    font-family: Tahoma, Helvetica, sans-serif;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-transition: all .15s ease;
+    -moz-transition: all .15s ease;
+    transition: all .15s ease
+}
+
+.share-overlay .share a .icon {
+    display: block;
+    width: 80px;
+    height: 80px;
+    margin: 10px auto 0
+}
+
+.share-overlay .share .share-facebook {
+    background: #3B5998
+}
+
+.share-overlay .share .share-facebook:hover {
+    background: #5276c3;
+    box-shadow: 6px 6px 0 #3d5b9b inset, -6px -6px 0 #3d5b9b inset
+}
+
+.share-overlay .share .share-facebook .icon {
+    background-position: -80px 0
+}
+
+.share-overlay .share .share-facebook-message {
+    background: #3B5998
+}
+
+.share-overlay .share .share-facebook-message:hover {
+    background: #5276c3;
+    box-shadow: 6px 6px 0 #3d5b9b inset, -6px -6px 0 #3d5b9b inset
+}
+
+.share-overlay .share .share-facebook-message .icon {
+    background-position: -320px 0
+}
+
+.share-overlay .share .share-facebook-photo {
+    background: #3B5998
+}
+
+.share-overlay .share .share-facebook-photo:hover {
+    background: #5276c3;
+    box-shadow: 6px 6px 0 #3d5b9b inset, -6px -6px 0 #3d5b9b inset
+}
+
+.share-overlay .share .share-facebook-photo .icon {
+    background-position: -400px 0
+}
+
+.share-overlay .share .share-twitter {
+    background: #00ACED
+}
+
+.share-overlay .share .share-twitter:hover {
+    background: #07BBFF;
+    box-shadow: 6px 6px 0 #269ac6 inset, -6px -6px 0 #269ac6 inset
+}
+
+.share-overlay .share .share-twitter .icon {
+    background-position: 0 0
+}
+
+.share-overlay .share .share-email {
+    background: #3FCA6C
+}
+
+.share-overlay .share .share-email:hover {
+    background: #50d97c;
+    box-shadow: 6px 6px 0 #2EC55F inset, -6px -6px 0 #2EC55F inset
+}
+
+.share-overlay .share .share-email .icon {
+    background-position: -480px 0
+}
+
+.share-overlay .share .share-download {
+    background: #F04532
+}
+
+.share-overlay .share .share-download:hover {
+    background: #F25B4A;
+    box-shadow: 6px 6px 0 #EE2F1A inset, -6px -6px 0 #EE2F1A inset
+}
+
+.share-overlay .share .share-download .icon {
+    background-position: -160px 0
+}
+
+.share-overlay.empty .share-facebook-photo, .share-overlay.empty .share-download, .share-overlay.empty .share-email {
+    display: none
+}
+
+.loading-overlay {
+    background: rgba(255, 255, 255, .9);
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 11;
+    visibility: hidden;
+    opacity: 0
+}
+
+.loading-overlay .inner {
+    display: inline-block;
+    position: relative;
+    top: 30%;
+    margin: 0 auto;
+    padding: 40px 60px;
+    border-radius: 2px;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box
+}
+
+.loading-overlay .status {
+    display: block;
+    width: 32px;
+    height: 32px;
+    margin: 0 auto
+}
+
+.loading-overlay.loading-state .status {
+    background-image: url(http://d1835mevib0k1p.cloudfront.net/sketch/ajax-loader.gif);
+    background-repeat: no-repeat;
+    background-position: 50% 50%
+}
+
+.loading-overlay.success-state {
+    color: #459a4c
+}
+
+.loading-overlay.success-state .status:before {
+    content: '\2713';
+    font-size: 46px
+}
+
+.loading-overlay.error-state {
+    color: #9a3932
+}
+
+.loading-overlay.error-state .status:before {
+    content: '\2717';
+    font-size: 46px
+}
+
+.loading-overlay.visible {
+    visibility: visible;
+    opacity: 1;
+    -webkit-transition: all .3s ease;
+    -moz-transition: all .3s ease;
+    transition: all .3s ease
+}
+
+.loading-overlay .message {
+    margin: 20px auto 0;
+    font-size: 22px
+}
+
+.replay-controls {
+    position: absolute;
+    width: 60%;
+    height: 10px;
+    bottom: -30px;
+    left: 20%;
+    background: #eee;
+    border: 1px solid transparent;
+    border-radius: 6px;
+    visibility: hidden;
+    opacity: 0;
+    cursor: pointer;
+    z-index: 9;
+    -webkit-transition: all .3s ease;
+    -moz-transition: all .3s ease;
+    transition: all .3s ease
+}
+
+.replay-controls .progress {
+    position: absolute;
+    height: 100%;
+    width: 0;
+    background: #fb956c;
+    border-radius: 7px
+}
+
+.replay-controls .progress:after {
+    content: '';
+    display: block;
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    right: 0;
+    margin-right: -8px;
+    top: -6px;
+    border-radius: 10px;
+    z-index: 1;
+    background: #fb956c;
+    border: 2px solid #fff;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, .5)
+}
+
+.replay-controls .progress:active:after {
+    margin-top: 1px;
+    box-shadow: 0 0 2px rgba(0, 0, 0, .5)
+}
+
+.replaying .replay-controls {
+    visibility: visible;
+    opacity: 1
+}
+
+.initialized footer {
+    opacity: 1
+}
+
+.initialized .sketch-canvas {
+    visibility: visible
+}
+
+.initialized .sketch-footer {
+    visibility: visible
+}
+
+.touch .facebook-connect, .touch header .share {
+    display: none !important
+}
+
+.scyscrapes-below #left-pillar, .scyscrapes-below #right-pillar {
+    position: absolute;
+    top: 110%;
+    margin-left: 0;
+    margin-right: 0
+}
+
+.scyscrapes-below #left-pillar {
+    left: 0;
+    margin-left: 30px
+}
+
+.scyscrapes-below #right-pillar {
+    right: 0;
+    margin-right: 30px
+}
+
+.scyscrapes-below .sketch-canvas-wrapper {
+    margin-bottom: 660px
+}
+
+.chrome-app-link {
+    position: relative;
+    display: none
+}
+
+.chrome-app-capable .chrome-app-link {
+    display: inline-block
+}
+
+.chrome-app-installed .chrome-app-link {
+    display: none
+}
+
+.chrome-app-installed header .share {
+    display: none
+}
+
+.chrome-app-installed footer {
+    display: none
+}
