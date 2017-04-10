@@ -16,7 +16,7 @@ router.get('/', function(req, res, next) {
         var fs = require("fs"),
             path = require("path");
 
-        var p = "./public/images/users/"+req.cookies.UserName;
+        var p = "../public/images/users/"+req.cookies.UserName;
         fs.readdir(p, function (err, files) {
             if (err) {
                 throw err;
