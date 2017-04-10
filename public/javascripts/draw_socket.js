@@ -15,7 +15,7 @@ var downloadAsSVG = function (fileName) {
     link.click();
 };
 paper.install(window);
-var line,GlobalColor='black',GlobalSize=3,path,pathPoints,paths_num=0;
+var line,GlobalColor='black',GlobalSize=3,path=new Array(),pathPoints=new Array(),paths_num=0;
 var pathsToSave=new Array(),users_paths=new Array();
 var msgsToSave=new Array();
 var room,userName;
@@ -24,21 +24,21 @@ window.onload = function() {
     alert("you can copy url and share room with others");
     line = new Tool();
     line.onMouseDown = function (event) {
-        path = new Path();
-        pathPoints=new Array();
-        path.strokeColor = GlobalColor;
-        path.strokeWidth = GlobalSize;
-        path.add(event.point);
+        path[userName] = new Path();
+        pathPoints[userName]=new Array();
+        path[userName].strokeColor = GlobalColor;
+        path[userName].strokeWidth = GlobalSize;
+        path[userName].add(event.point);
         var data = {x: event.point.x, y: event.point.y, color: GlobalColor,size:GlobalSize};
-        pathPoints.push(data);
-        socket.emit( 'drawLine1', data,room);
+        pathPoints[userName].push(data);
+        socket.emit( 'drawLine1', data,room,userName);
     };
 
     line.onMouseDrag = function(event) {
-        path.add(event.point);
+        path[userName].add(event.point);
         var data = {x: event.point.x, y: event.point.y, color: GlobalColor,size:GlobalSize};
-        pathPoints.push(data);
-        socket.emit( 'drawLine2', data,room);
+        pathPoints[userName].push(data);
+        socket.emit( 'drawLine2', data,room,userName);
     };
     line.onMouseUp = function (event) {
         if(users_paths[userName]==null)
@@ -47,34 +47,34 @@ window.onload = function() {
             pathsToSave[userName]=new Array();
         }
         paths_num++;
-        users_paths[userName].push(path);
-        pathsToSave[userName].push(pathPoints);
+        users_paths[userName].push(path[userName]);
+        pathsToSave[userName].push(pathPoints[userName]);
         socket.emit( 'drawLine3',room,userName);
     };
 
-    socket.on( 'drawLine1', function( data ) {
-        path = new Path();
-        pathPoints=new Array();
-        path.strokeColor = data.color;
-        path.strokeWidth =data.size;
-        path.add(new Point(data.x,data.y));
-        pathPoints.push(data);
+    socket.on( 'drawLine1', function( data,user ) {
+        path[user] = new Path();
+        pathPoints[user]=new Array();
+        path[user].strokeColor = data.color;
+        path[user].strokeWidth =data.size;
+        path[user].add(new Point(data.x,data.y));
+        pathPoints[user].push(data);
     });
 
-    socket.on( 'drawLine2', function( data ) {
-        path.add(new Point(data.x,data.y));
-        pathPoints.push(data);
+    socket.on( 'drawLine2', function( data ,user) {
+        path[user].add(new Point(data.x,data.y));
+        pathPoints[user].push(data);
     });
 
-    socket.on( 'drawLine3', function( user ) {
+    socket.on( 'drawLine3', function( user) {
         if(users_paths[user]==null)
         {
             users_paths[user]=new Array();
             pathsToSave[user]=new Array();
         }
         paths_num++;
-        users_paths[user].push(path);
-        pathsToSave[user].push(pathPoints);
+        users_paths[user].push(path[user]);
+        pathsToSave[user].push(pathPoints[user]);
     });
 
     socket.on( 'undo', function(user) {

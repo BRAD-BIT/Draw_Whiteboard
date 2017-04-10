@@ -89,12 +89,12 @@ io.on('connection', function(socket){
         socket.in(room).broadcast.emit( 'drawCircle', data );
     });
 
-    socket.on( 'drawLine1', function( data ,room) {
-        socket.in(room).broadcast.emit( 'drawLine1', data );
+    socket.on( 'drawLine1', function( data ,room,userName) {
+        socket.in(room).broadcast.emit( 'drawLine1', data,userName );
     });
 
-    socket.on( 'drawLine2', function( data ,room) {
-        socket.in(room).broadcast.emit( 'drawLine2', data );
+    socket.on( 'drawLine2', function( data ,room,userName) {
+        socket.in(room).broadcast.emit( 'drawLine2', data,userName );
     });
     socket.on( 'drawLine3', function(room,user) {
         socket.in(room).broadcast.emit( 'drawLine3', user );
