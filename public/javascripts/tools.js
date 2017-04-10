@@ -192,7 +192,7 @@ window.sketch = {}, sketch.Locale = function () {
                     users.push(user);
                     pths.push(pathsToSave[user]);
                 }
-                console.log(JSON.stringify(pths));
+                //console.log(JSON.stringify(pths));
                 socket.emit('save', room, userName,dataUrl,JSON.stringify(users),JSON.stringify(pths));
             }
             else alert("there is no draws to save");
