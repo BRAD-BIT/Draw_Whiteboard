@@ -110,11 +110,6 @@ app.post('/register', function(req, res) {
                 if(result['statue']=='OK')
                 {
                     database.insert_user(handle,password,function () {
-                        var fs = require('fs');
-                        var dir = './public/images/users/'+handle;
-                        if (!fs.existsSync(dir)){
-                            fs.mkdirSync(dir);
-                        }
                         res.cookie('UserName',handle, { maxAge: 7 * 24 * 60 * 60 * 1000, httpOnly: true });
                         res.send(result);
                     });

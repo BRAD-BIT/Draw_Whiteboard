@@ -75,7 +75,7 @@ io.on('connection', function(socket){
         var base64Data = image.replace(/^data:image\/png;base64,/, "");
         var date = new Date();
         var name=date.getTime();
-        require("fs").writeFile('./public/images/users/'+User+'/'+name+".png", base64Data, 'base64', function(err) {
+        require('fs-path').writeFile('./public/images/users/'+User+'/'+name+".png", base64Data, 'base64', function(err) {
             if(err)throw err;
         });
         database.insert_draw(name,users,paths);

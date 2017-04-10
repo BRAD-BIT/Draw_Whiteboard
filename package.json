@@ -20,7 +20,8 @@
     "bcrypt":"1.0.2",
     "randomstring":"1.1.5",
     "mysql":"2.13.0",
-    "socket.io":"1.7.3"
+    "socket.io":"1.7.3",
+	"fs-path":"0.0.23"
   },
   "repository": {
     "type": "git",
