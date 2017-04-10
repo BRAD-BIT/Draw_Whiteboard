@@ -1,8 +1,10 @@
 /**
  * Created by mangawy on 3/24/17.
  */
+var path    = require("path");
 var express = require('express');
-var router = express.Router();
+var router  = express.Router();
+
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -16,7 +18,7 @@ router.get('/', function(req, res, next) {
         var fs = require("fs"),
             path = require("path");
 
-        var p = "/app/public/images/users/"+req.cookies.UserName;
+        var p = path.join(__dirname, 'public', 'images','users',req.cookies.UserName);
         fs.readdir(p, function (err, files) {
             if (err) {
                 throw err;
