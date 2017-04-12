@@ -135,10 +135,7 @@ window.sketch = {}, sketch.Locale = function () {
     function i() {
         colorDropdown = new sketch.Dropdown.create($(".color-dropdown")), colorDropdown.setValue(Bb), colorDropdown.onChanged = function (a) {
             GlobalColor=a;
-            var canvas = document.getElementById('myCanvas');
-            var ctx = canvas.getContext('2d');
-
-            ctx.strokeStyle = a;
+            makeCursor(a);
 
         }, sizeDropdown = new sketch.Dropdown.create($(".size-dropdown")), sizeDropdown.setValue(Cb), sizeDropdown.onChanged = function (a) {
             GlobalSize=a;
