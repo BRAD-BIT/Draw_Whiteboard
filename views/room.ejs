@@ -1,6 +1,5 @@
 <head>
     <title>Draw Whiteboard | <%=userName%></title>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
 
         body {
@@ -38,7 +37,7 @@
 
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="/javascripts/paperjs/dist/paper-full.js"></script>
 
     <script type="text/javascript" src="/javascripts/chat_java.js"></script>
@@ -194,6 +193,33 @@
 
 
 </div>
+<script>
+
+    function makeCursor(color) {
+
+        if(color=='#ffffff')color='#000000';
+        var cursor = document.createElement('canvas'),
+            ctx = cursor.getContext('2d');
+
+        cursor.width = 16;
+        cursor.height = 16;
+
+        ctx.strokeStyle = color;
+
+        ctx.lineWidth = 4;
+        ctx.lineCap = 'round';
+
+        ctx.moveTo(2, 12);
+        ctx.lineTo(2, 2);
+        ctx.lineTo(12, 2);
+        ctx.moveTo(2, 2);
+        ctx.lineTo(30, 30)
+        ctx.stroke();
+
+        myCanvas.style.cursor = 'url(' + cursor.toDataURL() + '), auto';
+    }
+    makeCursor("#000000");
+</script>
 <script src="/javascripts/tools.js"></script>
 <script type="text/javascript" src="/javascripts/wow-alert.js"></script>
 
