@@ -160,7 +160,15 @@ window.sketch = {}, sketch.Locale = function () {
             }, 0);
         }
     }
-	
+    function downloadURI(uri, name) {
+        var link = document.createElement("a");
+        link.download = name;
+        link.href = uri;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        delete link;
+    }
 	function xx() {
 	
 		$(".toolbar .undo-button").click(function() {
@@ -195,6 +203,19 @@ window.sketch = {}, sketch.Locale = function () {
             else alert("there is no draws to save");
 
 		});
+        $(".toolbar .snapshot-button").click(function() {
+            if(paths_num>0)
+            {
+                var canvas = document.getElementById('myCanvas'),
+                    dataUrl = canvas.toDataURL();
+                //console.log(dataUrl);
+                downloadURI(dataUrl, "YourDraws.png");
+                alert("your draws successfully downloaded");
+
+            }
+            else alert("there is no draws to download");
+
+        });
 		$(".toolbar .eraser-toggle").click(function() {
 		    if(users_paths[userName]!=null)
             {
