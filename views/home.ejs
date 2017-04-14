@@ -1,6 +1,5 @@
 <head>
     <title>Draw Whiteboard | <%=user%></title>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
         body {
             height:100%;
@@ -9,10 +8,6 @@
             -moz-background-size: contain;
             background-size: cover;
         }
-		img {
-			width: 100%;
-			height: auto;
-		}
     </style>
     <link rel="stylesheet" href="/stylesheets/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
@@ -84,7 +79,7 @@
                 </script>
                 <div class="col-lg-3 col-md-4 col-xs-6 thumb">
                     <a class="thumbnail" href="/room/<%=saved[i]%>">
-                        <img class="img-responsive" src="/images/users/<%=user%>/<%=saved[i]%>" alt="<%=dateString%>">
+                        <img class="img-responsive" src="/users/<%=user%>/<%=saved[i]%>" alt="<%=dateString%>">
                     </a>
                 </div>
                 <%

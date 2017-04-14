@@ -29,6 +29,14 @@ app.use('/room', room);
 app.use('/home', home);
 app.use('/logout',logout);
 
+app.get('/users/:user/:image', function(req, res)
+{
+    //console.log(req.params.user+" "+req.params.image);
+    res.sendFile(__dirname+"/users/"+req.params.user+"/"+req.params.image);
+});
+
+
+
 //validation
 app.post('/login', function(req, res) {
     var result = {'handle':'','password':'','statue':'OK'};

@@ -17,7 +17,7 @@ router.get('/', function(req, res, next) {
         var fs = require("fs"),
             path = require("path");
 
-        var p = path.join(__dirname,'..','public','images','users',req.cookies.UserName);
+        var p = path.join(__dirname,'..','users',req.cookies.UserName);
         if (!fs.existsSync(p)){
             return res.render('home', {user: req.cookies.UserName,saved:new Array()});
         }
