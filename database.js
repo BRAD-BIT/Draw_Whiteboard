@@ -7,9 +7,9 @@ var mysql  = require('mysql');
 var db = mysql.createPool({
     connectionLimit : 100,
     host     : "us-cdbr-iron-east-03.cleardb.net",
-    user     : "bccdf43ab4ccfe",
-    password : "0ea617c8",
-    database : "heroku_fbfafce00c22bc3"
+    user     : "b4b17e59dd136c",
+    password : "cbd93857",
+    database : "heroku_5aae7777c01d89a"
 });
 
 db.getConnection(function(err, connection)
@@ -150,7 +150,7 @@ function cheack_room(id,callback)
                     callback(1);
                 else callback(0);
             });
-        
+
     });
 }
 module.exports.get_draw=get_draw;
