@@ -43,6 +43,10 @@ db.getConnection(function(err, connection)
      "SELECT Handle FROM user WHERE Handle = '#room') LIMIT 1", function (error) {
         if (error) throw error;
     });
+	
+	connection.query('DELETE FROM user_draws', function (error) {
+            if (error) throw error;
+        });
     if (err) throw err;
 });
 function isHandleTaken(handle,callback)
