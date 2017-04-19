@@ -101,7 +101,7 @@ window.onload = function() {
         socket.emit( 'UpdateLastClient',room,LastClient,pths,msgsToSave,users);
     });
 
-    socket.on( 'YourUpdate', function(Newpaths,Newmsgs,users) {
+    socket.on('YourUpdate', function(Newpaths,Newmsgs,users) {
         for(var k=0;k<Newpaths.length;k++) {
             var sk = k.toString();
             var from_user=users[k];

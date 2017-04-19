@@ -1,8 +1,5 @@
-
-
 <title>Draw Whiteboard</title>
 <style>
-
     body {
         height:100%;
         background: url("http://hdwallpaperbackgrounds.net/wp-content/uploads/2016/07/white-background.jpg") no-repeat center fixed;
@@ -10,90 +7,39 @@
         -moz-background-size: contain;
         background-size: cover;
     }
-
-
 </style>
-<!DOCTYPE html>
-<html>
 <head>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="/stylesheets/Reg_Sign.css">
-    <!-- All the files that are   -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
 </head>
-
-
-        <!-- Where all the magic happens -->
-        <!-- LOGIN FORM -->
-
-
-
-
-        <div class="text-center" style="text-align:center">
-            <div class="logo">login</div>
-            <!-- Main Form -->
-
-            <div class="login-form-1">
-                <form id="L" name="Lform" action="/home"  id="login-form" class="text-left">
-                    <div class="login-form-main-message"></div>
-                    <div class="main-login-form">
-                        <div class="login-group">
-                            <div class="form-group">
-                                <label for="lg_username" class="sr-only">Username<br></label>
-                                <input type="text" class="form-control"    id="Handle"    value="" placeholder="           Enter Username"><h6 style="color:RED;"id="v_Handle"></h6>
-                            </div>
-                            <div class="form-group">
-                                <label for="lg_password" class="sr-only">Password<br></label>
-                                <input type="password" class="form-control"   id="Password" value="" placeholder="           Enter Password"><h6 style="color:RED;"id="v_Password"></h6>
-                            </div>
-                        </div>
-                        <button type="button" onclick="login_validation()" class="login-button"><i class="fa fa-chevron-right"></i></button>
-                    </div>
-
-                </form>
-            </div>
-        </div>
-
-        <!-- REGISTRATION FORM -->
-        <div class="text-center" style="text-align:center">
-            <div class="logo">register</div>
-            <!-- Main Form -->
-            <div class="login-form-1">
-                <form id="R" name="Rform"  action="/home" >
-                    <div class="login-form-main-message"></div>
-                    <div class="main-login-form">
-                        <div class="login-group">
-                            <div class="form-group">
-                                User Name<br>
-                                <input type="text"  class="form-control" id="handle"   placeholder="only alpha,numbers,(_)" ><h6 style="color:RED;"id="v_handle"></h6>
-                            </div>
-
-                            <div class="form-group">
-                                Enter Password<br>
-                                <input type="password" class="form-control" id="password"   placeholder="Enter Your Password"><h6 style="color:RED;"id="v_password"></h6>
-                            </div>
-                            <div class="form-group">
-                                Confirm Password<br>
-                                <input type="password" class="form-control" id="Cpassword"   placeholder="Confirm Your Password"><h6 style="color:RED;"id="v_Cpassword"></h6>
-                            </div>
-
-
-                        </div>
-                        <button type="button" onclick="register_validation()"  class="login-button"><i class="fa fa-chevron-right"></i></button>
-                    </div>
-                </form>
-            </div>
-            <!-- end:Main Form -->
-        </div>
-</html>
-
-
-
+<div class="login-page">
+    <div class="form">
+        <form id="R" name="Rform" class="register-form">
+            <input id="handle" type="text" placeholder="username"/><h6 style="color:RED;"id="v_handle"></h6>
+            <input id="password" type="password" placeholder="password"/><h6 style="color:RED;"id="v_password"></h6>
+            <input id="Cpassword" type="password" placeholder="repeat password"/><h6 style="color:RED;"id="v_Cpassword"></h6>
+            <button type="button" onclick="register_validation()">create</button>
+            <p class="message">Already registered? <a href="#">Sign In</a></p>
+        </form>
+        <form id="L" name="Lform" class="login-form">
+            <input id="Handle" type="text" placeholder="username"/><h6 style="color:RED;"id="v_Handle"></h6>
+            <input id="Password" type="password" placeholder="password"/><h6 style="color:RED;"id="v_Password"></h6>
+            <button type="button" onclick="login_validation()">login</button>
+            <p class="message">Not registered? <a href="#">Create an account</a></p>
+        </form>
+    </div>
+</div>
 <script>
+
+    $('.message a').click(function(){
+        $('form').animate({height: "toggle", opacity: "toggle"}, "slow");
+    });
     function login_validation()
     {
         var handle = document.forms['Lform']['Handle'].value;
         var password = document.forms['Lform']['Password'].value;
-
 
         var hr = new XMLHttpRequest();
         hr.onreadystatechange = function()
@@ -101,9 +47,8 @@
             if(hr.readyState == 4 && hr.status == 200)
             {
                 result = hr.responseText;
-                //alert(result);
+                alert(result);
                 result=JSON.parse(result);
-
                 document.getElementById("v_Handle").innerHTML = result['handle'];
                 document.getElementById("v_Password").innerHTML = result['password'];
 
