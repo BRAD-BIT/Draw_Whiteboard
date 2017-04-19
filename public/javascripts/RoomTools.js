@@ -221,7 +221,7 @@ window.sketch = {}, sketch.Locale = function () {
             {
                 if (confirm('Are you sure you want to clear all room draw ?')) {
                     for (var usern in users_paths) {
-                        console.log(usern);
+                        //console.log(usern);
                         if (users_paths[usern].length > 0) {
 
                             while (users_paths[usern].length > 0) {
