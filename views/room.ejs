@@ -1,7 +1,6 @@
 <head>
     <title>Draw Whiteboard | <%=userName%></title>
     <style>
-
         body {
             height:100%;
             background: url("http://hdwallpaperbackgrounds.net/wp-content/uploads/2016/07/white-background.jpg") no-repeat center fixed;
@@ -9,8 +8,6 @@
             -moz-background-size: contain;
             background-size: cover;
         }
-
-
     </style>
     <script src="/socket.io/socket.io.js"></script>
     <script>
@@ -46,12 +43,12 @@
 
 
     <link rel="stylesheet" type="text/css" href="/stylesheets/wow-alert.css">
-    <link href="/stylesheets/tools.css" rel="stylesheet" media="screen"/>
+    <link href="/stylesheets/RoomTools.css" rel="stylesheet" media="screen"/>
     <link href="/stylesheets/chat_style.css" rel="stylesheet" type="text/css">
 
 </head>
 <br><br>
-<div  align="center">
+<div align="center">
     <div class="toolbar">
         <div class="btn new-button green" title="Go To Home Page" name="new-button" >Home</div>
         <div class="btn save-button green" title="Save the sketch" name="save-button">Save</div>
@@ -172,8 +169,9 @@
                 </ul>
             </div>
         </div>
+        <div class="divider"></div>
 
-
+        <div class="btn button blue" title="Number of Users in Room" name="Active-button" >Active : <span class="value" id="active_num">1</span></div>
 
     </div>
 
@@ -221,7 +219,7 @@
     }
     makeCursor("#000000");
 </script>
-<script src="/javascripts/tools.js"></script>
+<script src="/javascripts/RoomTools.js"></script>
 <script type="text/javascript" src="/javascripts/wow-alert.js"></script>
 
 <div class="container" style="z-index: 10000;position:relative;">
@@ -252,4 +250,3 @@
     </div>
 
 </div>
-

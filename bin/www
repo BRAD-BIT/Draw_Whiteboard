@@ -39,10 +39,17 @@ server.on('error', onError);
 server.on('listening', onListening);
 
 var io = require('socket.io')(server);
+
+var room_users=new Array();
 io.on('connection', function(socket){
 
     socket.on('disconnect', function(){
         console.log(socket.nickname);
+        user=(socket.nickname).split("'")[1];
+        user=(user).split("'")[0];
+        room=(socket.nickname).split('#')[1];
+        room_users[room].delete(user);
+        socket.in(room).emit("active_num",  room_users[room].size);
         //console.log(Object.keys(socket.adapter.rooms[9889].sockets));
     });
 
@@ -50,6 +57,11 @@ io.on('connection', function(socket){
     socket.on('room', function(room,user) {
         console.log("User '"+user+"' joined to room #"+room);
         socket.nickname = "User '"+user+"' leave room #"+room;
+
+        if(!room_users[room])room_users[room]=new Set();
+        room_users[room].add(user);
+        socket.in(room).emit("active_num", room_users[room].size);
+
 
         socket.join(room);
 
@@ -61,13 +73,14 @@ io.on('connection', function(socket){
         {
             //console.log("Get Update");
             setTimeout(function() {
-                socket.to(FirstClient).emit('UpdateMe',LastClient);
+                socket.to(FirstClient).emit('UpdateMe',LastClient,room_users[room].size);
             }, 2000 );
         }
+
     });
 
-    socket.on('UpdateLastClient', function(room,LastClient,paths,msgs,from_user){
-        socket.to(LastClient).emit('YourUpdate', paths,msgs,from_user);
+    socket.on('UpdateLastClient', function(room,LastClient,paths,msgs,from_user,Anum){
+        socket.to(LastClient).emit('YourUpdate', paths,msgs,from_user,Anum);
     });
 
     socket.on('save', function(room,User,image,users,paths){

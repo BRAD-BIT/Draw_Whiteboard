@@ -1,19 +1,6 @@
 /**
  * Created by mangawy on 3/24/17.
  */
-var downloadAsSVG = function (fileName) {
-
-    if(!fileName) {
-        fileName = "paperjs_example.svg"
-    }
-
-    var url = "data:image/svg+xml;utf8," + encodeURIComponent(paper.project.exportSVG({asString:true}));
-    console.log(url);
-    var link = document.createElement("a");
-    link.download = fileName;
-    link.href = url;
-    link.click();
-};
 paper.install(window);
 var line,GlobalColor='black',GlobalSize=3,path=new Array(),pathPoints=new Array(),paths_num=0;
 var pathsToSave=new Array(),users_paths=new Array();
@@ -40,6 +27,7 @@ window.onload = function() {
         pathPoints[userName].push(data);
         socket.emit( 'drawLine2', data,room,userName);
     };
+
     line.onMouseUp = function (event) {
         if(users_paths[userName]==null)
         {
@@ -90,7 +78,7 @@ window.onload = function() {
         }
     });
 
-    socket.on( 'UpdateMe', function(LastClient) {
+    socket.on( 'UpdateMe', function(LastClient,Anum) {
         console.log(LastClient +" Want To upadte His Drawing");
         var users=new Array();
         var pths=new Array();
@@ -98,63 +86,54 @@ window.onload = function() {
             users.push(user);
             pths.push(pathsToSave[user]);
         }
-        socket.emit( 'UpdateLastClient',room,LastClient,pths,msgsToSave,users);
+        socket.emit( 'UpdateLastClient',room,LastClient,pths,msgsToSave,users,Anum);
     });
 
-    socket.on('YourUpdate', function(Newpaths,Newmsgs,users) {
-        for(var k=0;k<Newpaths.length;k++) {
-            var sk = k.toString();
-            var from_user=users[k];
-            for (var i = 0; i < Newpaths[sk].length; i++) {
-                var new_path = new Path();
-                var si = i.toString();
-                var new_pathPoints = new Array();
-                new_path.strokeColor = Newpaths[sk][si]["0"].color;
-                new_path.strokeWidth = Newpaths[sk][si]["0"].size;
-                new_path.add(new Point(Newpaths[sk][si]["0"].x, Newpaths[sk][si]["0"].y));
-                new_pathPoints.push(Newpaths[sk][si]["0"]);
+    socket.on( 'YourUpdate', function(Newpaths,Newmsgs,users,Anum) {
 
-                for (var j = 1; j < Newpaths[sk][si].length; j++) {
-                    var sj = j.toString();
-                    new_path.add(new Point(Newpaths[sk][si][sj].x, Newpaths[sk][si][sj].y));
-                    new_pathPoints.push(Newpaths[sk][si][sj]);
-                }
-                if (pathsToSave[from_user] == null) {
-                    pathsToSave[from_user] = new Array();
-                    users_paths[from_user] = new Array();
-                }
-                paths_num++;
-                pathsToSave[from_user].push(new_pathPoints);
-                users_paths[from_user].push(new_path);
-            }
-        }
-        for(var i=0;i<Newmsgs.length;i++)
-        {
-            var si=i.toString();
-            var usr=Newmsgs[si].username;
-            var msg=Newmsgs[si].msg;
-            if(usr==userName)
-            {
-                var newS='<div class="row msg_container base_sent"> <div class="col-md-10 col-xs-10 "> <div class="messages msg_sent"> <p>'+ msg +'</p> <time datetime="2009-11-13T20:00">'+usr+'</time> </div> </div> <div class="col-md-2 col-xs-2 avatar"> <img src="http://www.bitrebels.com/wp-content/uploads/2011/02/Original-Facebook-Geek-Profile-Avatar-1.jpg" class=" img-responsive "> </div> </div>';
-                $('#messages').append(newS);
-            }
-            else {
-                var newR='<div class="row msg_container base_receive"> <div class="col-md-2 col-xs-2 avatar"> <img src="http://www.bitrebels.com/wp-content/uploads/2011/02/Original-Facebook-Geek-Profile-Avatar-1.jpg" class=" img-responsive "> </div> <div class="col-xs-10 col-md-10"> <div class="messages msg_receive"> <p>'+msg+'</p> <time datetime="2009-11-13T20:00">'+usr+'</time> </div> </div> </div>';
-                $('#messages').append(newR);
-            }
-            msgsToSave.push(Newmsgs[si]);
-        }
+        //console.log(Anum);
+        document.getElementById("active_num").innerHTML = Anum;
+        loadDraws(Newpaths,users);
+        loadMsgs(Newmsgs);
+
     });
-    load(users_load,points_load);
+    socket.on('active_num',function (clinetlens) {
+        //console.log("reached");
+        document.getElementById("active_num").innerHTML = clinetlens;
+    })
+
+    if(points_load.length!=0)
+    {
+        var Newpaths=JSON.parse(points_load);
+        var users=JSON.parse(users_load);
+        loadDraws(Newpaths,users);
+    }
 };
-
-function load(users_load,points_load)
+window.onbeforeunload = function()
 {
-    if(points_load.length==0)return;
-
-    var Newpaths=JSON.parse(points_load);
-    var users=JSON.parse(users_load);
-
+   // alert("you are last client in room so if you close the tab all draws will lose")
+};
+function loadMsgs(Newmsgs)
+{
+    for(var i=0;i<Newmsgs.length;i++)
+    {
+        var si=i.toString();
+        var usr=Newmsgs[si].username;
+        var msg=Newmsgs[si].msg;
+        if(usr==userName)
+        {
+            var newS='<div class="row msg_container base_sent"> <div class="col-md-10 col-xs-10 "> <div class="messages msg_sent"> <p>'+ msg +'</p> <time datetime="2009-11-13T20:00">'+usr+'</time> </div> </div> <div class="col-md-2 col-xs-2 avatar"> <img src="http://www.bitrebels.com/wp-content/uploads/2011/02/Original-Facebook-Geek-Profile-Avatar-1.jpg" class=" img-responsive "> </div> </div>';
+            $('#messages').append(newS);
+        }
+        else {
+            var newR='<div class="row msg_container base_receive"> <div class="col-md-2 col-xs-2 avatar"> <img src="http://www.bitrebels.com/wp-content/uploads/2011/02/Original-Facebook-Geek-Profile-Avatar-1.jpg" class=" img-responsive "> </div> <div class="col-xs-10 col-md-10"> <div class="messages msg_receive"> <p>'+msg+'</p> <time datetime="2009-11-13T20:00">'+usr+'</time> </div> </div> </div>';
+            $('#messages').append(newR);
+        }
+        msgsToSave.push(Newmsgs[si]);
+    }
+}
+function loadDraws(Newpaths,users)
+{
     for(var k=0;k<Newpaths.length;k++) {
         var sk = k.toString();
         var from_user=users[k];
