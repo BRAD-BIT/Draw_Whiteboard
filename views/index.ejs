@@ -47,7 +47,7 @@
             if(hr.readyState == 4 && hr.status == 200)
             {
                 result = hr.responseText;
-                alert(result);
+                //alert(result);
                 result=JSON.parse(result);
                 document.getElementById("v_Handle").innerHTML = result['handle'];
                 document.getElementById("v_Password").innerHTML = result['password'];
